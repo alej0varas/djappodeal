@@ -1,0 +1,7 @@
+*~
+__pycache__
+/README.html
+/*.egg-info
+/build/
+/dist/
+*.pyc
