@@ -34,6 +34,7 @@ setup(
     long_description=read_file('README.rst'),
     author='Alexandre Varas',
     author_email='alej0varas@gmail.com',
+    keywords='django appodeal reward',
     packages=find_packages(),
     include_package_data=True,
     install_requires=['django', 'pycrypto'],
