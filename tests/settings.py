@@ -5,6 +5,8 @@ DATABASES = {
     }
 }
 INSTALLED_APPS=(
+    'django.contrib.contenttypes',
+    'django.contrib.auth',
     'appodeal',
 )
 SITE_ID=1

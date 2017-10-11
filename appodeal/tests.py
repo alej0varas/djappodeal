@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -6,6 +7,7 @@ from appodeal import models
 
 class RewardCreateAPIViewTestCase(TestCase):
     def test_success(self):
+        User.objects.create(username='AF')
         url = reverse('appodeal:reward-create')
         # From their example code
         data1 = "02A87383F97008D2F8898DA81A39EDAF"
@@ -15,4 +17,5 @@ class RewardCreateAPIViewTestCase(TestCase):
         response = self.client.get(url, data)
 
         self.assertEqual(response.status_code, 201)
-        self.assertTrue(models.Reward.objects.get())
+        obj = models.Reward.objects.get()
+        self.assertEqual(obj.result, 'Rewarded with 100')

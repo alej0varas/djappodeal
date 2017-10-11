@@ -1,8 +1,8 @@
-from Crypto.Cipher import AES
 import codecs
 import hashlib
 import urllib.parse
 
+from Crypto.Cipher import AES
 from django.conf import settings
 from django.views.generic import View
 from django.http import HttpResponse
@@ -31,8 +31,9 @@ class RewardCreateAPIView(View):
             output = isinstance(output_ios, dict) and output_ios or isinstance(output_android, dict) and output_android or None
             # If we got a valid output
             if output is not None:
+                rewards = models.Reward.objects.filter(impression_id=output['impression_id'])
                 try:
-                    result = models.APPODEAL_REWARD_CREATE_HANDLER
+                    result = models.APPODEAL_REWARD_CREATE_HANDLER(output, rewards)
                 except Exception as e:
                     result = str(e)
             # If both outputs are bad

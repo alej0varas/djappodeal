@@ -13,10 +13,10 @@ def appodeal_reward_create_handler(output, rewards):
         # User hasn't been rewarded
         profile = None
         try:
-            profile = User.objects.get(user=output['user_id'])
-            profile.reward(100)
+            user = User.objects.get(username=output['user_id'])
+            # reward(user, 100)
             result = 'Rewarded with 100'
-        except Profile.DoesNotExist:
+        except User.DoesNotExist:
             result = 'User does not exist'
     else:
         result = 'Already rewarded'

@@ -1,12 +1,19 @@
+import importlib
+
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 # Check app configuration
-APPODEAL_REWARD_CREATE_HANDLER = getattr(settings, 'APPODEAL_REWARD_CREATE_HANDLER', None)
-
-if not APPODEAL_REWARD_CREATE_HANDLER:
+appodeal_reward_create_handler_str = getattr(settings, 'APPODEAL_REWARD_CREATE_HANDLER', None)
+if not appodeal_reward_create_handler_str:
     raise ImproperlyConfigured('You need to define APPODEAL_REWARD_CREATE_HANDLER')
+
+_parts = appodeal_reward_create_handler_str.split('.')
+_module_str = '.'.join(_parts[:-1])
+_method_str = _parts[-1]
+_module = importlib.import_module(_module_str)
+APPODEAL_REWARD_CREATE_HANDLER = getattr(_module, _method_str)
 
 APPODEAL_SECRET_ANDROID = getattr(settings, 'APPODEAL_SECRET_ANDROID', None)
 APPODEAL_SECRET_IOS = getattr(settings, 'APPODEAL_SECRET_IOS', None)
